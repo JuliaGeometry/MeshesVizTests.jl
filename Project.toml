@@ -1,0 +1,4 @@
+name = "MeshVizTests"
+uuid = "dbb4ea13-56dd-4508-a390-9c763df710aa"
+version = "0.1.0"
+authors = ["Joshua Lampert <joshua.lampert@uni-hamburg.de> and contributors"]
