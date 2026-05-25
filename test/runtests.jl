@@ -415,6 +415,7 @@ end
 
   # 3D CartesianGrid
   g = CartesianGrid(10, 10, 10)
+  nv = nvertices(g)
   ne = nelements(g)
   @test_reference joinpath(datadir, "cartgrid3D-1.png") viz(g)
   @test_reference joinpath(datadir, "cartgrid3D-2.png") viz(g, showsegments=true)
@@ -428,6 +429,11 @@ end
   @test_reference joinpath(datadir, "cartgrid3D-10.png") viz(g, color=1:ne, showsegments=true, segmentcolor="red")
   @test_reference joinpath(datadir, "cartgrid3D-11.png") viz(g, showsegments=true, segmentsize=5)
   @test_reference joinpath(datadir, "cartgrid3D-12.png") viz(g, showsegments=true, segmentcolor="red", segmentsize=5)
+  @test_reference joinpath(datadir, "cartgrid3D-13.png") viz(g, color=1:nv)
+  @test_reference joinpath(datadir, "cartgrid3D-14.png") viz(g, color=1:nv, colormap="inferno")
+  @test_reference joinpath(datadir, "cartgrid3D-15.png") viz(g, color=1:nv, alpha=0.5)
+  @test_reference joinpath(datadir, "cartgrid3D-16.png") viz(g, color=1:nv, showsegments=true)
+  @test_reference joinpath(datadir, "cartgrid3D-17.png") viz(g, color=1:nv, showsegments=true, segmentcolor="red")
 
   # 2D RectilinearGrid
   x = 0:0.2:1
