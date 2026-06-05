@@ -394,6 +394,29 @@ end
   @test_reference joinpath(datadir, "geomset3D-3.png") viz(g, color=1:2, colormap="inferno")
   @test_reference joinpath(datadir, "geomset3D-4.png") viz(g, color=["red", "green"], alpha=0.5)
   @test_reference joinpath(datadir, "geomset3D-5.png") viz(g, color=1:2, alpha=0.5)
+
+  # 3D multi-geometries with segments
+  q = rand(Quadrangle, 2)
+  p = rand(Triangle, 2)
+  g = GeometrySet([Multi(p),Multi(q)])
+  viz(g)
+  viz(g, showsegments=true)
+  viz(g, color=1:2, colormap="inferno")
+  viz(g, color=1:2, colormap="inferno", showsegments=true, segmentcolor="red")
+  viz(g, color=["red", "green"], alpha=0.5)
+  viz(g, color=["red", "green"], alpha=0.5, showsegments=true, segmentcolor="red")
+
+  # 3D multi-geometries with segments and points
+  r = rand(Ray, 5)
+  p = rand(Triangle, 5)
+  g = GeometrySet([Multi(p),Multi(r)])
+  viz(g)
+  viz(g, showpoints=true, pointsize=20, showsegments=true)
+  viz(g, showpoints=true, pointsize=20, pointcolor="red", showsegments=true, segmentcolor="red")
+  viz(g, color=1:2)
+  viz(g, color=1:2, colormap="inferno")
+  viz(g, color=["red", "green"], alpha=0.5)
+  viz(g, color=1:2, alpha=0.5)
 end
 
 @testitem "Grid" setup = [Setup] begin
