@@ -120,6 +120,20 @@ end
   @test_reference joinpath(datadir, "line-euclid2D-2.png") viz(l, color="red")
   @test_reference joinpath(datadir, "line-euclid2D-3.png") viz(l, color=1:3)
   @test_reference joinpath(datadir, "line-euclid2D-4.png") viz(l, color=1:3, segmentsize=10)
+
+  # only vertical lines
+  l = [Line((0, 0), (0, 1)), Line((1, 0), (1, 1)), Line((2, 0), (2, 1))]
+  @test_reference joinpath(datadir, "line-euclid2D-5.png") viz(l)
+  @test_reference joinpath(datadir, "line-euclid2D-6.png") viz(l, color="red")
+  @test_reference joinpath(datadir, "line-euclid2D-7.png") viz(l, color=1:3)
+  @test_reference joinpath(datadir, "line-euclid2D-8.png") viz(l, color=1:3, segmentsize=10)
+
+  # only diagonal lines
+  l = [Line((0, 0), (1, 1)), Line((1, 0), (2, 1)), Line((2, 0), (3, 1))]
+  @test_reference joinpath(datadir, "line-euclid2D-9.png") viz(l)
+  @test_reference joinpath(datadir, "line-euclid2D-10.png") viz(l, color="red")
+  @test_reference joinpath(datadir, "line-euclid2D-11.png") viz(l, color=1:3)
+  @test_reference joinpath(datadir, "line-euclid2D-12.png") viz(l, color=1:3, segmentsize=10)
 end
 
 @testitem "Box" setup = [Setup] begin
