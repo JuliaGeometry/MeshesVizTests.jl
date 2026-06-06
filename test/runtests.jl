@@ -350,26 +350,26 @@ end
   @test_reference joinpath(datadir, "multi-globe-6.png") viz(m, color="red", showsegments=true, segmentcolor="cyan", segmentsize=10)
 end
 
-@testitem "Transformed" setup = [Setup] begin
+@testitem "TransformedGeometry" setup = [Setup] begin
   # 2D Transformed-Box (Cartesian)
   b = Box(cart(0, 0), cart(10, 10))
   t = TransformedGeometry(b, Proj(Mercator))
-  @test_reference joinpath(datadir, "transf-euclid2D-1.png") viz(t)
-  @test_reference joinpath(datadir, "transf-euclid2D-2.png") viz(t, color="red")
-  @test_reference joinpath(datadir, "transf-euclid2D-3.png") viz(t, color="red", alpha=0.5)
-  @test_reference joinpath(datadir, "transf-euclid2D-4.png") viz(t, color="red", showsegments=true)
-  @test_reference joinpath(datadir, "transf-euclid2D-5.png") viz(t, color="red", showsegments=true, segmentcolor="cyan")
-  @test_reference joinpath(datadir, "transf-euclid2D-6.png") viz(t, color="red", showsegments=true, segmentcolor="cyan", segmentsize=10)
+  @test_reference joinpath(datadir, "transfbox-euclid2D-1.png") viz(t)
+  @test_reference joinpath(datadir, "transfbox-euclid2D-2.png") viz(t, color="red")
+  @test_reference joinpath(datadir, "transfbox-euclid2D-3.png") viz(t, color="red", alpha=0.5)
+  @test_reference joinpath(datadir, "transfbox-euclid2D-4.png") viz(t, color="red", showsegments=true)
+  @test_reference joinpath(datadir, "transfbox-euclid2D-5.png") viz(t, color="red", showsegments=true, segmentcolor="cyan")
+  @test_reference joinpath(datadir, "transfbox-euclid2D-6.png") viz(t, color="red", showsegments=true, segmentcolor="cyan", segmentsize=10)
 
   # 2D Transformed-Box (LatLon)
   b = Box(latlon(0, 0), latlon(10, 10))
   t = TransformedGeometry(b, Proj(Mercator))
-  @test_reference joinpath(datadir, "transf-globe-1.png") viz(t)
-  @test_reference joinpath(datadir, "transf-globe-2.png") viz(t, color="red")
-  @test_reference joinpath(datadir, "transf-globe-3.png") viz(t, color="red", alpha=0.5)
-  @test_reference joinpath(datadir, "transf-globe-4.png") viz(t, color="red", showsegments=true)
-  @test_reference joinpath(datadir, "transf-globe-5.png") viz(t, color="red", showsegments=true, segmentcolor="cyan")
-  @test_reference joinpath(datadir, "transf-globe-6.png") viz(t, color="red", showsegments=true, segmentcolor="cyan", segmentsize=10)
+  @test_reference joinpath(datadir, "transfbox-globe-1.png") viz(t)
+  @test_reference joinpath(datadir, "transfbox-globe-2.png") viz(t, color="red")
+  @test_reference joinpath(datadir, "transfbox-globe-3.png") viz(t, color="red", alpha=0.5)
+  @test_reference joinpath(datadir, "transfbox-globe-4.png") viz(t, color="red", showsegments=true)
+  @test_reference joinpath(datadir, "transfbox-globe-5.png") viz(t, color="red", showsegments=true, segmentcolor="cyan")
+  @test_reference joinpath(datadir, "transfbox-globe-6.png") viz(t, color="red", showsegments=true, segmentcolor="cyan", segmentsize=10)
 end
 
 @testitem "GeometrySet" setup = [Setup] begin
@@ -582,32 +582,51 @@ end
   @test_reference joinpath(datadir, "geoms-6.png") viz(g, color=1:3, alpha=0.5)
 end
 
-@testitem "Views" setup = [Setup] begin
+@testitem "SubDomain" setup = [Setup] begin
   # views of grids (optimized for performance)
   g = CartesianGrid(10, 10)
   v = view(g, 1:2:100)
-  @test_reference joinpath(datadir, "gridview2D-1.png") viz(v)
-  @test_reference joinpath(datadir, "gridview2D-2.png") viz(v, color=1:50)
-  @test_reference joinpath(datadir, "gridview2D-3.png") viz(v, color=1:50, colormap="inferno")
+  @test_reference joinpath(datadir, "subgrid2D-1.png") viz(v)
+  @test_reference joinpath(datadir, "subgrid2D-2.png") viz(v, color=1:50)
+  @test_reference joinpath(datadir, "subgrid2D-3.png") viz(v, color=1:50, colormap="inferno")
   g = CartesianGrid(10, 10, 10)
   v = view(g, 1:2:1000)
-  @test_reference joinpath(datadir, "gridview3D-1.png") viz(v)
-  @test_reference joinpath(datadir, "gridview3D-2.png") viz(v, color=1:500)
-  @test_reference joinpath(datadir, "gridview3D-3.png") viz(v, color=1:500, colormap="inferno")
+  @test_reference joinpath(datadir, "subgrid3D-1.png") viz(v)
+  @test_reference joinpath(datadir, "subgrid3D-2.png") viz(v, color=1:500)
+  @test_reference joinpath(datadir, "subgrid3D-3.png") viz(v, color=1:500, colormap="inferno")
 
   # views of meshes
   g = CartesianGrid(10, 10)
   m = convert(SimpleMesh, g)
   v = view(m, 1:2:100)
-  @test_reference joinpath(datadir, "meshview2D-1.png") viz(v)
-  @test_reference joinpath(datadir, "meshview2D-2.png") viz(v, color=1:50)
-  @test_reference joinpath(datadir, "meshview2D-3.png") viz(v, color=1:50, colormap="inferno")
+  @test_reference joinpath(datadir, "submesh2D-1.png") viz(v)
+  @test_reference joinpath(datadir, "submesh2D-2.png") viz(v, color=1:50)
+  @test_reference joinpath(datadir, "submesh2D-3.png") viz(v, color=1:50, colormap="inferno")
   g = CartesianGrid(10, 10, 10)
   m = convert(SimpleMesh, g)
   v = view(m, 1:2:1000)
-  @test_reference joinpath(datadir, "meshview3D-1.png") viz(v)
-  @test_reference joinpath(datadir, "meshview3D-2.png") viz(v, color=1:500)
-  @test_reference joinpath(datadir, "meshview3D-3.png") viz(v, color=1:500, colormap="inferno")
+  @test_reference joinpath(datadir, "submesh3D-1.png") viz(v)
+  @test_reference joinpath(datadir, "submesh3D-2.png") viz(v, color=1:500)
+  @test_reference joinpath(datadir, "submesh3D-3.png") viz(v, color=1:500, colormap="inferno")
+end
+
+@testitem "TransformedDomain" setup = [Setup] begin
+  # 2D TransformedDomain
+  g = RegularGrid(Point(LatLon(-90, -180)), Point(LatLon(90, 180)), dims=(10, 10))
+  t = g |> ValidCoords(Mercator) |> Proj(Mercator)
+  ne = nelements(t)
+  @test_reference joinpath(datadir, "transfdom2D-1.png") viz(t)
+  @test_reference joinpath(datadir, "transfdom2D-2.png") viz(t, showsegments=true)
+  @test_reference joinpath(datadir, "transfdom2D-3.png") viz(t, showsegments=true, segmentcolor="red")
+  @test_reference joinpath(datadir, "transfdom2D-4.png") viz(t, color=1:ne)
+  @test_reference joinpath(datadir, "transfdom2D-5.png") viz(t, color=1:ne, colormap="inferno")
+  @test_reference joinpath(datadir, "transfdom2D-6.png") viz(t, color="red")
+  @test_reference joinpath(datadir, "transfdom2D-7.png") viz(t, color="red", alpha=0.5)
+  @test_reference joinpath(datadir, "transfdom2D-8.png") viz(t, color=1:ne, alpha=0.5)
+  @test_reference joinpath(datadir, "transfdom2D-9.png") viz(t, color=1:ne, showsegments=true)
+  @test_reference joinpath(datadir, "transfdom2D-10.png") viz(t, color=1:ne, showsegments=true, segmentcolor="red")
+  @test_reference joinpath(datadir, "transfdom2D-11.png") viz(t, showsegments=true, segmentsize=5)
+  @test_reference joinpath(datadir, "transfdom2D-12.png") viz(t, showsegments=true, segmentcolor="red", segmentsize=5)
 end
 
 @testitem "Special values" setup = [Setup] begin
