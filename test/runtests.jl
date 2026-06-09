@@ -722,3 +722,14 @@ end
   viz(fig[1, 3], ref3, showsegments=true)
   @test_reference joinpath(datadir, "trisubdivision.png") fig
 end
+
+@testitem "Interactivity" setup = [Setup] begin
+  rng = StableRNG(123)
+
+  boxes = Mke.Observable(rand(rng, Box, 2, crs=Cartesian3D))
+  fig = Mke.Figure(size=(900, 300))
+  viz(fig[1, 1], boxes, showsegments=true)
+  @test_reference joinpath(datadir, "interactivity-1.png") fig
+  boxes[] = rand(rng, Box, 3, crs=Cartesian3D)
+  @test_reference joinpath(datadir, "interactivity-2.png") fig
+end
