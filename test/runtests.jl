@@ -359,6 +359,8 @@ end
 end
 
 @testitem "GeometrySet" setup = [Setup] begin
+  rng = StableRNG(123)
+
   # 1D geometries
   g1 = Rope((0.0, 0.0), (1.0, 1.0), (0.0, 1.0))
   g2 = Rope((1.0, 1.0), (2.0, 2.0), (1.0, 2.0))
@@ -396,27 +398,27 @@ end
   @test_reference joinpath(datadir, "geomset3D-5.png") viz(g, color=1:2, alpha=0.5)
 
   # 3D multi-geometries with segments
-  q = rand(Quadrangle, 2)
-  p = rand(Triangle, 2)
+  q = rand(rng, Quadrangle, 2, crs=Cartesian3D)
+  p = rand(rng, Triangle, 2, crs=Cartesian3D)
   g = GeometrySet([Multi(p),Multi(q)])
-  viz(g)
-  viz(g, showsegments=true)
-  viz(g, color=1:2, colormap="inferno")
-  viz(g, color=1:2, colormap="inferno", showsegments=true, segmentcolor="red")
-  viz(g, color=["red", "green"], alpha=0.5)
-  viz(g, color=["red", "green"], alpha=0.5, showsegments=true, segmentcolor="red")
+  @test_reference joinpath(datadir, "geomset3Dsegments-1.png") viz(g)
+  @test_reference joinpath(datadir, "geomset3Dsegments-2.png") viz(g, showsegments=true)
+  @test_reference joinpath(datadir, "geomset3Dsegments-3.png") viz(g, color=1:2, colormap="inferno")
+  @test_reference joinpath(datadir, "geomset3Dsegments-4.png") viz(g, color=1:2, colormap="inferno", showsegments=true, segmentcolor="red")
+  @test_reference joinpath(datadir, "geomset3Dsegments-5.png") viz(g, color=["red", "green"], alpha=0.5)
+  @test_reference joinpath(datadir, "geomset3Dsegments-6.png") viz(g, color=["red", "green"], alpha=0.5, showsegments=true, segmentcolor="red")
 
   # 3D multi-geometries with segments and points
-  r = rand(Ray, 5)
-  p = rand(Triangle, 5)
+  r = rand(rng, Ray, 5, crs=Cartesian3D)
+  p = rand(rng, Triangle, 5, crs=Cartesian3D)
   g = GeometrySet([Multi(p),Multi(r)])
-  viz(g)
-  viz(g, showpoints=true, pointsize=20, showsegments=true)
-  viz(g, showpoints=true, pointsize=20, pointcolor="red", showsegments=true, segmentcolor="red")
-  viz(g, color=1:2)
-  viz(g, color=1:2, colormap="inferno")
-  viz(g, color=["red", "green"], alpha=0.5)
-  viz(g, color=1:2, alpha=0.5)
+  @test_reference joinpath(datadir, "geomset3Dsegmentspoints-1.png") viz(g)
+  @test_reference joinpath(datadir, "geomset3Dsegmentspoints-2.png") viz(g, showpoints=true, pointsize=20, showsegments=true)
+  @test_reference joinpath(datadir, "geomset3Dsegmentspoints-3.png") viz(g, showpoints=true, pointsize=20, pointcolor="red", showsegments=true, segmentcolor="red")
+  @test_reference joinpath(datadir, "geomset3Dsegmentspoints-4.png") viz(g, color=1:2)
+  @test_reference joinpath(datadir, "geomset3Dsegmentspoints-5.png") viz(g, color=1:2, colormap="inferno")
+  @test_reference joinpath(datadir, "geomset3Dsegmentspoints-6.png") viz(g, color=["red", "green"], alpha=0.5)
+  @test_reference joinpath(datadir, "geomset3Dsegmentspoints-7.png") viz(g, color=1:2, alpha=0.5)
 end
 
 @testitem "Grid" setup = [Setup] begin
