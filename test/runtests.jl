@@ -373,6 +373,8 @@ end
 end
 
 @testitem "GeometrySet" setup = [Setup] begin
+  rng = StableRNG(123)
+
   # 1D geometries
   g1 = Rope((0.0, 0.0), (1.0, 1.0), (0.0, 1.0))
   g2 = Rope((1.0, 1.0), (2.0, 2.0), (1.0, 2.0))
@@ -408,6 +410,29 @@ end
   @test_reference joinpath(datadir, "geomset3D-3.png") viz(g, color=1:2, colormap="inferno")
   @test_reference joinpath(datadir, "geomset3D-4.png") viz(g, color=["red", "green"], alpha=0.5)
   @test_reference joinpath(datadir, "geomset3D-5.png") viz(g, color=1:2, alpha=0.5)
+
+  # 3D multi-geometries with segments
+  q = rand(rng, Quadrangle, 2, crs=Cartesian3D)
+  p = rand(rng, Triangle, 2, crs=Cartesian3D)
+  g = GeometrySet([Multi(p),Multi(q)])
+  @test_reference joinpath(datadir, "geomset3D-6.png") viz(g)
+  @test_reference joinpath(datadir, "geomset3D-7.png") viz(g, showsegments=true)
+  @test_reference joinpath(datadir, "geomset3D-8.png") viz(g, color=1:2, colormap="inferno")
+  @test_reference joinpath(datadir, "geomset3D-9.png") viz(g, color=1:2, colormap="inferno", showsegments=true, segmentcolor="red")
+  @test_reference joinpath(datadir, "geomset3D-10.png") viz(g, color=["red", "green"], alpha=0.5)
+  @test_reference joinpath(datadir, "geomset3D-11.png") viz(g, color=["red", "green"], alpha=0.5, showsegments=true, segmentcolor="red")
+
+  # 3D multi-geometries with segments and points
+  r = rand(rng, Ray, 5, crs=Cartesian3D)
+  p = rand(rng, Triangle, 5, crs=Cartesian3D)
+  g = GeometrySet([Multi(p),Multi(r)])
+  @test_reference joinpath(datadir, "geomset3D-12.png") viz(g)
+  @test_reference joinpath(datadir, "geomset3D-13.png") viz(g, showpoints=true, pointsize=20, showsegments=true)
+  @test_reference joinpath(datadir, "geomset3D-14.png") viz(g, showpoints=true, pointsize=20, pointcolor="red", showsegments=true, segmentcolor="red")
+  @test_reference joinpath(datadir, "geomset3D-15.png") viz(g, color=1:2)
+  @test_reference joinpath(datadir, "geomset3D-16.png") viz(g, color=1:2, colormap="inferno")
+  @test_reference joinpath(datadir, "geomset3D-17.png") viz(g, color=["red", "green"], alpha=0.5)
+  @test_reference joinpath(datadir, "geomset3D-18.png") viz(g, color=1:2, alpha=0.5)
 end
 
 @testitem "Grid" setup = [Setup] begin
@@ -729,4 +754,15 @@ end
   viz(fig[1, 2], ref2, showsegments=true)
   viz(fig[1, 3], ref3, showsegments=true)
   @test_reference joinpath(datadir, "trisubdivision.png") fig
+end
+
+@testitem "Interactivity" setup = [Setup] begin
+  rng = StableRNG(123)
+
+  boxes = Mke.Observable(rand(rng, Box, 2, crs=Cartesian3D))
+  fig = Mke.Figure(size=(900, 300))
+  viz(fig[1, 1], boxes, showsegments=true)
+  @test_reference joinpath(datadir, "interactivity-1.png") fig
+  boxes[] = rand(rng, Box, 3, crs=Cartesian3D)
+  @test_reference joinpath(datadir, "interactivity-2.png") fig
 end
