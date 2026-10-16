@@ -13,4 +13,4 @@ TestItems = "1c621080-faea-4a02-84b6-bbd5e436b8fe"
 Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
 
 [compat]
-CairoMakie = "=0.15.11"
+CairoMakie = "=0.15.16"
