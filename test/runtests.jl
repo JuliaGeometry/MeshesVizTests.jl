@@ -28,21 +28,21 @@ end
   @test_reference joinpath(datadir, "point-euclid2D-1.png") viz(p)
   @test_reference joinpath(datadir, "point-euclid2D-2.png") viz(p, color="red")
   @test_reference joinpath(datadir, "point-euclid2D-3.png") viz(p, color=1:10)
-  @test_reference joinpath(datadir, "point-euclid2D-4.png") viz(p, color=1:10, pointsize=20)
+  @test_reference joinpath(datadir, "point-euclid2D-4.png") viz(p, color=1:10, size=20)
 
   # 2D Point (LatLon)
   p = rand(rng, Point, 10, crs=LatLon)
   @test_reference joinpath(datadir, "point-globe-1.png") viz(p)
   @test_reference joinpath(datadir, "point-globe-2.png") viz(p, color="red")
   @test_reference joinpath(datadir, "point-globe-3.png") viz(p, color=1:10)
-  @test_reference joinpath(datadir, "point-globe-4.png") viz(p, color=1:10, pointsize=20)
+  @test_reference joinpath(datadir, "point-globe-4.png") viz(p, color=1:10, size=20)
 
   # 3D Point (Cartesian)
   p = rand(rng, Point, 10, crs=Cartesian3D)
   @test_reference joinpath(datadir, "point-euclid3D-1.png") viz(p)
   @test_reference joinpath(datadir, "point-euclid3D-2.png") viz(p, color="red")
   @test_reference joinpath(datadir, "point-euclid3D-3.png") viz(p, color=1:10)
-  @test_reference joinpath(datadir, "point-euclid3D-4.png") viz(p, color=1:10, pointsize=20)
+  @test_reference joinpath(datadir, "point-euclid3D-4.png") viz(p, color=1:10, size=20)
 end
 
 @testitem "Ray/Vec" setup = [Setup] begin
